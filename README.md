@@ -1,8 +1,6 @@
 # MartianFiction
 
 
-# Equipo MartianFiction
-
 # Team Members:
 -
 -
