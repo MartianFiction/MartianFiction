@@ -21,6 +21,7 @@ Isaac Asimov is still considered one of the biggest science fiction writers of a
 
 - Python 3.11
 - Pyplot from the Matplotlib module
+- NumPy  1.19.2
 
 
 
