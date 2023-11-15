@@ -1,0 +1,25 @@
+#pseudocode
+
+import math as m
+
+
+#Mars
+R = 3389.5*100                                 # m radio multiply by 100 to convert to meters
+m_r = (0, 0, 0)                                # position vector
+G = 4.0                                        # m/s² Gravitational field intensity
+
+
+# Rocket
+
+m = 1e6                                        # kg book information
+alpha = 7.6                                    # rad degrees of takeoff inclination book information
+r = (R*m.cos(alpha), R*m.sen(alpha), 0)        # Position vector [sen(7.6) = co/h = y/r ,  cos(7.6) = ca/h = x/r]
+vi = (0, 28000/3.6, 0)                         #28,000 km/h divide by 3.6 to convert to m/s
+
+
+
+#Increases speed with constant momentum.
+#Fact: on day 2 the speed reaches 150,000 km/h and reaches 1.5 million km/h after 5 weeks
+
+ 
+
