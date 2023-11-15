@@ -1,0 +1,39 @@
+Medidas
+
+Marte
+Masa: 0.641691e24 kg
+Radio Promedio: 3,389.5 km
+Superficie: 144,798,500 km2
+Distancia Promedio al Sol: 227,943,824 km 
+Densidad Media: 3.9340 g/cm3
+Gravedad Superficial Media: 3.71 m/s2
+Velocidad del viento: 100 km/h
+Velocidad de Escape: 5.03 km/s
+
+Saturno
+Masa: 568.317e24 kg
+Radio Promedio: 58,232 km
+Superficie: 4,27e10 km2
+Distancia Promedio al Sol: 1,434,000,000 km
+Densidad Media: 0.6871 g/cm3
+Gravedad Superficial Media: 10.44 m/s2
+Velocidad del viento: 1,800 km/h
+Velocidad de Escape: 36.09 km/s
+Distancia desde el centro de Saturno a:
+Anillo D: 66,900 - 74,510 km
+Anillo C: 74,658 - 92,000 km
+Anillo B: 92,000 - 117,580 km
+División Cassini: 117,580 - 122,170 km
+Anillo A: 122,170 - 136,775 km
+División Roche: 136,775 - 139,380 km
+Anillo F: 140,180 km
+Anillo Janus-Epimetheus: 149,000 - 154,000 km
+Anillo G: 166,000 - 175,000 km
+Arco Anillo Methone: 194,230 km
+Arco Anillo Anthe: 197,665 km
+Anillo Pallene: 211,000 - 213,500 km
+Anillo E: 180,000 - 480,000 km
+Anillo Phoebe: ~4,000,000 -> 13,000,000 km
+
+Sol
+Masa: 1.9885e30 kg
