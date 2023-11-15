@@ -7,11 +7,12 @@ import math
 G = 6.67e-11  #N m**2/kg**2
 
 class Particle():
-    def __init__(self, m=0.0, r=[0.0,0.0,0.0], v = [0.0,0.0,0.0]):
+    def __init__(self, m=0.0, r=[0.0,0.0,0.0], v = [0.0,0.0,0.0],Static=False):
         self.m = m # [kg]
         self.r = r # [m, m, m]
         self.v = v # [m/s, m/s, m/s]
         self.i = 0 # index in the n-body-system
+        self.static = Static # if true, the particle is not moved
         
     def Print(self):
         print (self.i,self.m, self.r[0], self.r[1],self.r[2],self.v[0],self.v[1],self.v[2])
@@ -61,31 +62,32 @@ class Integrator():
     def compute(self):
         #print("DEB2",self.n_body_system.N)
         for p in self.n_body_system.p: #for all particles
-            n = p.i
-            vx = 0.0
-            vy = 0.0
-            vz = 0.0
-            for q in self.n_body_system.p: #sum
-                #print("DEB3",q.i,n)
-                if (q.i != n):
-                    u = self.U(q.r,p.r)
-                    r = self.norm(u)
-                    vx = vx + self.E(p.m, r)*self.dt*u[0]
-                    vy = vy + self.E(p.m, r)*self.dt*u[1]
-                    vz = vz + self.E(p.m, r)*self.dt*u[2]
-                    #print("DEB1",vx,vy,vz)
-            p.v[0] = vx + p.v[0]
-            p.v[1] = vy + p.v[1]
-            p.v[2] = vz + p.v[2]
-            
-            
-        for p in self.n_body_system.p: #for all particles
-            p.r[0] = p.v[0]*self.dt + p.r[0]
-            p.r[1] = p.v[1]*self.dt + p.r[1]
-            p.r[2] = p.v[2]*self.dt + p.r[2]            
-            
-            
-        return self.n_body_system
+            if (p.static != True):
+                n = p.i
+                vx = 0.0
+                vy = 0.0
+                vz = 0.0
+                for q in self.n_body_system.p: #sum
+                    #print("DEB3",q.i,n)
+                    if (q.i != n):
+                        u = self.U(q.r,p.r)
+                        r = self.norm(u)
+                        vx = vx + self.E(p.m, r)*self.dt*u[0]
+                        vy = vy + self.E(p.m, r)*self.dt*u[1]
+                        vz = vz + self.E(p.m, r)*self.dt*u[2]
+                        #print("DEB1",vx,vy,vz)
+                p.v[0] = vx + p.v[0]
+                p.v[1] = vy + p.v[1]
+                p.v[2] = vz + p.v[2]
+                
+                
+            for p in self.n_body_system.p: #for all particles
+                p.r[0] = p.v[0]*self.dt + p.r[0]
+                p.r[1] = p.v[1]*self.dt + p.r[1]
+                p.r[2] = p.v[2]*self.dt + p.r[2]            
+                
+                
+            return self.n_body_system
 
                 
 #m_sun = 1.98847e30 #Kg
@@ -106,3 +108,5 @@ class Integrator():
     
 mars_mass = 6.4171e23 #Kg
 jupyter_mass = 1.8982e27 #Kg
+
+
