@@ -1,11 +1,27 @@
 #!/usr/bin/env python3
 
-#import numpy as np
-import math
+#       Library
+import numpy as np
+import math as m
+import matplotlib.pyplot as plt
+from scipy.constants import G  # MKS N m**2/kg**2
 
-# MKS
-G = 6.67e-11  #N m**2/kg**2
+#         Class
 
+class Particle():
+    def __init__(self, m=0.0, r = 0.0, p=[0.0,0.0,0.0], ve = 0.0, v = [0.0, 0.0, 0.0], Static=True):
+        self.m = m # [kg]
+        self.r = r # [ua] (astronomical units) Average distance to the Sun
+        self.p = p # [m, m, m] Position vector 
+        self.ve = ve # [m/s] Escape velocity
+        self.v = v # [m/s, m/s, m/s]
+        self.i = 0 # index in the n-body-system
+        self.static = Static # if true, the particle is not moved
+        
+    def Print(self):
+        print (self.i,self.m, self.r, self,ve, self.p[0], self.p[1],self.p[2],self.v[0],self.v[1],self.v[2])
+
+'''
 class Particle():
     def __init__(self, m=0.0, r=[0.0,0.0,0.0], v = [0.0,0.0,0.0],Static=False):
         self.m = m # [kg]
@@ -13,6 +29,7 @@ class Particle():
         self.v = v # [m/s, m/s, m/s]
         self.i = 0 # index in the n-body-system
         self.static = Static # if true, the particle is not moved
+'''
         
     def Print(self):
         print (self.i,self.m, self.r[0], self.r[1],self.r[2],self.v[0],self.v[1],self.v[2])
@@ -90,6 +107,91 @@ class Integrator():
             return self.n_body_system
 
                 
+
+#        General information:
+
+ANG = 7.6 # initial angular position of the rocket in radians
+Re = Saturn.r *(Saturn.m*(1989e30)**0.4) # Radius of influence/gravitational forces
+
+#        Position values
+
+sa = m.sin(ANG)
+ca = m.cos(ANG)
+sca = m.sin(m.pi/2+ANG)
+cca = m.cos(m.pi/2+ANG)
+
+
+#        Particles
+
+# Sun 
+Sun = Particle()
+Sun.m = 1 # Mass
+Sun.p = [0, 0, 0] # Position vector
+
+
+# Mars
+Mars = Particle()
+Mars.m = 6.4e23 # Mass
+Mars.r = 1.52  # Average distance to the Sun
+Mars.ve = 5030 # Escape velocity
+Mars.p = [1, 0, 0] # Position vector
+
+
+#Saturn
+Saturn = Particle()
+Saturn.m = 5.683e26 # Mass 
+Saturn.r = 9.5  # Average distance to the Sun 
+Saturn.ve = 35500 # Escape velocity
+Saturn.p = [round(Saturn.r*ca,2), round(Saturn.r*sa, 2),0] # Position vector
+
+
+# Rocket
+Rocket = Particle()
+Rocket.m = 1e6 # Mass
+Rocket.r = 1.52 # Average distance to the Sun 
+Rocket.ve = 28000/3.6 # Velocity that beats Mars escape velocity (clearance site)
+Rocket.p = [1,0,0] # Position vector
+Rocket.static = False # Not static
+
+
+
+
+#                    Visualize
+
+#--------------------------------------------------------------------------------------------------------
+#You can see the sun and the planets Mars and Saturn with the following code
+#--------------------------------------------------------------------------------------------------------
+
+'''
+# Function makesphere of: https://stackoverflow.com/questions/61048426/python-generating-3d-sphere-in-numpy:
+
+def makesphere(x, y, z, radius, resolution=10):
+    
+    u, v = np.mgrid[0:2*np.pi:resolution*2j, 0:np.pi:resolution*1j]
+    X = radius * np.cos(u)*np.sin(v) + x
+    Y = radius * np.sin(u)*np.sin(v) + y
+    Z = radius * np.cos(v) + z
+    return (X, Y, Z)
+    
+fig = plt.figure("Spheres")
+ax = fig.add_subplot(projection='3d')
+
+X, Y, Z = makesphere(Sun.p[0], Sun.p[1], Sun.p[2], 0.6)
+ax.plot_surface(X, Y, Z, color="y")
+
+X, Y, Z = makesphere(Mars.p[0], Mars.p[1], Mars.p[2],  0.03)
+ax.plot_surface(X, Y, Z, color="r")
+
+X, Y, Z = makesphere(Saturn.p[0], Saturn.p[1], Saturn.p[2],  0.05)
+ax.plot_surface(X, Y, Z, color="b")
+
+'''
+
+#--------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------
+
+
 #m_sun = 1.98847e30 #Kg
 #dt = 0.1 #sec
 #p_1 = Particle(200.0, [0,0,0], [0, 0, 0])
@@ -105,8 +207,9 @@ class Integrator():
 #    if (skip % 10 == 0):
 #        two_body.Print()
 #    skip=skip+1
-    
-mars_mass = 6.4171e23 #Kg
-jupyter_mass = 1.8982e27 #Kg
+#    mars_mass = 6.4171e23 #Kg
+#    jupyter_mass = 1.8982e27 #Kg
+
+
 
 
