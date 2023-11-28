@@ -134,7 +134,7 @@ Mars = Particle()
 Mars.m = 6.4e23 # Mass
 Mars.r = 1.52  # Average distance to the Sun
 Mars.ve = 5030 # Escape velocity
-Mars.p = [1, 0, 0] # Position vector
+Mars.p = [1.52, 0, 0] # Position vector
 
 
 #Saturn
@@ -150,7 +150,8 @@ Rocket = Particle()
 Rocket.m = 1e6 # Mass
 Rocket.r = 1.52 # Average distance to the Sun 
 Rocket.ve = 28000/3.6 # Velocity that beats Mars escape velocity (clearance site)
-Rocket.p = [1,0,0] # Position vector
+Rocket.p = [round( Mars.p[0] + (ca*0.03),2), round((Mars.p[1] + sa*0.03), 2),0] # Position vector 
+#considering radius on a scale of e5 (0.03e5) [km]
 Rocket.static = False # Not static
 
 
@@ -176,13 +177,13 @@ def makesphere(x, y, z, radius, resolution=10):
 fig = plt.figure("Spheres")
 ax = fig.add_subplot(projection='3d')
 
-X, Y, Z = makesphere(Sun.p[0], Sun.p[1], Sun.p[2], 0.6)
+X, Y, Z = makesphere(Sun.p[0], Sun.p[1], Sun.p[2], 0.6) # radius on a scale of e5 
 ax.plot_surface(X, Y, Z, color="y")
 
-X, Y, Z = makesphere(Mars.p[0], Mars.p[1], Mars.p[2],  0.03)
+X, Y, Z = makesphere(Mars.p[0], Mars.p[1], Mars.p[2],  0.03) # radius on a scale of e5 
 ax.plot_surface(X, Y, Z, color="r")
 
-X, Y, Z = makesphere(Saturn.p[0], Saturn.p[1], Saturn.p[2],  0.05)
+X, Y, Z = makesphere(Saturn.p[0], Saturn.p[1], Saturn.p[2],  0.05) # radius on a scale of e5 
 ax.plot_surface(X, Y, Z, color="b")
 
 '''
