@@ -1,20 +1,17 @@
-#pseudocode
+# Information needed for the rocket
 
-import math as m
-
-
-#Mars
-R = 3389.5*100                                 # m radio multiply by 100 to convert to meters
-m_r = (0, 0, 0)                                # position vector
-G = 4.0                                        # m/s² Gravitational field intensity
+- Mass: 1e6 [kg]
+- Average Distance to the Sun:  1.52  [ua] 
+- Initial angular position of the rocket: 7.6 [rad]
+- Escape velocity: 28000/3.6 [m/s] # Velocity that beats Mars escape velocity (clearance site)
+- Static: False
 
 
-# Rocket
+- Position vector: [R*m.cos(alpha), R*m.sen(alpha), 0]  
 
-m = 1e6                                        # kg book information
-alpha = 7.6                                    # rad degrees of takeoff inclination book information
-r = (R*m.cos(alpha), R*m.sen(alpha), 0)        # Position vector [sen(7.6) = co/h = y/r ,  cos(7.6) = ca/h = x/r]
-vi = (0, 28000/3.6, 0)                         #28,000 km/h divide by 3.6 to convert to m/s
+#See:
+* R is the mean distance to the Sun from Mars 
+* [sen(7.6) = co/h = y/r ,  cos(7.6) = ca/h = x/r]
 
 
 
