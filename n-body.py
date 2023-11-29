@@ -9,7 +9,7 @@ from scipy.constants import G  # MKS N m**2/kg**2
 #         Class
 
 class Particle():
-    def __init__(self, m=0.0, r = 0.0, p=[0.0,0.0,0.0], ve = 0.0, v = [0.0, 0.0, 0.0], Static=True):
+    def __init__(self, m=0.0, r = 0.0, p=[0.0,0.0,0.0], ve = 0.0, v = [0.0, 0.0, 0.0], Static=True, Acceleration = [0.0, 0.0, 0.0]):
         self.m = m # [kg]
         self.r = r # [ua] (astronomical units) Average distance to the Sun
         self.p = p # [m, m, m] Position vector 
@@ -17,9 +17,10 @@ class Particle():
         self.v = v # [m/s, m/s, m/s]
         self.i = 0 # index in the n-body-system
         self.static = Static # if true, the particle is not moved
+        self.acce = Acceleration
         
     def Print(self):
-        print (self.i,self.m, self.r, self.ve, self.p[0], self.p[1],self.p[2],self.v[0],self.v[1],self.v[2])
+        print (self.i, self.p[0], self.p[1],self.p[2],self.v[0],self.v[1],self.v[2])
 
 '''
 class Particle():
@@ -93,9 +94,11 @@ class Integrator():
                         vy = vy + self.E(p.m, r)*self.dt*u[1]
                         vz = vz + self.E(p.m, r)*self.dt*u[2]
                         #print("DEB1",vx,vy,vz)
-                p.v[0] = vx + p.v[0]
-                p.v[1] = vy + p.v[1]
-                p.v[2] = vz + p.v[2]
+                p.v[0] = vx + p.v[0] + (p.acce[0]*self.dt)
+                p.v[1] = vy + p.v[1] + (p.acce[1]*self.dt)
+                p.v[2] = vz + p.v[2] + (p.acce[2]*self.dt)
+            
+                    
                 
                 
             for p in self.n_body_system.p: #for all particles
@@ -121,7 +124,7 @@ cca = m.cos(m.pi/2+ANG)
 
 # Sun 
 Sun = Particle()
-Sun.m = 1 # Mass
+Sun.m = 3.95e30 # Mass
 Sun.p = [0, 0, 0] # Position vector
 
 
@@ -149,6 +152,8 @@ Rocket.ve = 28000/3.6 # Velocity that beats Mars escape velocity (clearance site
 Rocket.p = [round( Mars.p[0] + (ca*0.03),2), round((Mars.p[1] + sa*0.03), 2),0] # Position vector 
 #considering radius on a scale of e5 (0.03e5) [km]
 Rocket.static = False # Not static
+Rocket.acce = [16795.60,2241.01,0]
+
 
 #        General information:
 
@@ -166,7 +171,11 @@ newton = Integrator(System, dt)
 System.Header()
 skip = 0
 
-
+for j in range(1555200000): # 1555200000 = 6 months on 0.01 secs
+    two_body = newton.compute()
+    if (skip % 8640000 == 0):
+        two_body.Print()
+    skip=skip+1
 
 
 
