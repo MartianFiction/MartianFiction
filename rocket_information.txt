@@ -16,7 +16,18 @@
 
 
 #Increases speed with constant momentum.
-#Fact: on day 2 the speed reaches 150,000 km/h and reaches 1.5 million km/h after 5 weeks
+#Fact: on day 2 the speed reaches 150,000 km/h and reaches 2.2 million km/h after 5 weeks
+
+
+#Considering the above information and that the velocity for take-off is 7777.7778 m/s . We obtain the following information:
+velocity day 0: 7777.7778 [m/s].
+velocity day 2: 41666.6667 [m/s]. #150,000 km/h
+
+From this we derive the velocity of day 1 as: (velocity day 0 + velocity day 2)/ 2 . This gives us that...
+
+velocity of day 1: 24722.2222 [m/s].
+
+Having an approximate acceleration of 16944.45 [m/s] each day.
 
  
 
