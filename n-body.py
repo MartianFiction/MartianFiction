@@ -19,7 +19,7 @@ class Particle():
         self.static = Static # if true, the particle is not moved
         
     def Print(self):
-        print (self.i,self.m, self.r, self,ve, self.p[0], self.p[1],self.p[2],self.v[0],self.v[1],self.v[2])
+        print (self.i,self.m, self.r, self.ve, self.p[0], self.p[1],self.p[2],self.v[0],self.v[1],self.v[2])
 
 '''
 class Particle():
@@ -31,8 +31,8 @@ class Particle():
         self.static = Static # if true, the particle is not moved
 '''
         
-    def Print(self):
-        print (self.i,self.m, self.r[0], self.r[1],self.r[2],self.v[0],self.v[1],self.v[2])
+    #def Print(self):
+        #print (self.i,self.m, self.r[0], self.r[1],self.r[2],self.v[0],self.v[1],self.v[2])
 
 
 class N_body_system():
@@ -74,7 +74,7 @@ class Integrator():
         return [r_x, r_y, r_z]
 
     def norm(self, r):
-        return math.sqrt(r[0]**2 + r[1]**2 + r[2]**2)
+        return m.sqrt(r[0]**2 + r[1]**2 + r[2]**2)
     
     def compute(self):
         #print("DEB2",self.n_body_system.N)
@@ -107,11 +107,7 @@ class Integrator():
             return self.n_body_system
 
                 
-
-#        General information:
-
 ANG = 7.6 # initial angular position of the rocket in radians
-Re = Saturn.r *(Saturn.m*(1989e30)**0.4) # Radius of influence/gravitational forces
 
 #        Position values
 
@@ -153,6 +149,23 @@ Rocket.ve = 28000/3.6 # Velocity that beats Mars escape velocity (clearance site
 Rocket.p = [round( Mars.p[0] + (ca*0.03),2), round((Mars.p[1] + sa*0.03), 2),0] # Position vector 
 #considering radius on a scale of e5 (0.03e5) [km]
 Rocket.static = False # Not static
+
+#        General information:
+
+Re = Saturn.r *(Saturn.m*(1989e30)**0.4) # Radius of influence/gravitational forces
+
+
+System = N_body_system()
+System.add_particle(Sun)
+System.add_particle(Mars)
+System.add_particle(Saturn)
+System.add_particle(Rocket)
+
+dt = 0.01 #sec
+newton = Integrator(System, dt)
+System.Header()
+skip = 0
+
 
 
 
