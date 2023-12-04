@@ -5,6 +5,7 @@ import numpy as np
 import math as m
 import matplotlib.pyplot as plt
 from scipy.constants import G  # MKS N m**2/kg**2
+from gc import collect 
 
 #         Class
 
@@ -52,7 +53,7 @@ class N_body_system():
 
     def Header(self):
         print(self.N)
-        print("#index","mass", "x","y","z","vx","vy","vz")
+        print("#index", "x","y","z","vx","vy","vz")
 
 
 class Integrator():
@@ -88,7 +89,7 @@ class Integrator():
                 for q in self.n_body_system.p: #sum
                     #print("DEB3",q.i,n)
                     if (q.i != n):
-                        u = self.U(q.r,p.r)
+                        u = self.U(q.p,p.p)
                         r = self.norm(u)
                         vx = vx + self.E(p.m, r)*self.dt*u[0]
                         vy = vy + self.E(p.m, r)*self.dt*u[1]
@@ -102,12 +103,15 @@ class Integrator():
                 
                 
             for p in self.n_body_system.p: #for all particles
-                p.r[0] = p.v[0]*self.dt + p.r[0]
-                p.r[1] = p.v[1]*self.dt + p.r[1]
-                p.r[2] = p.v[2]*self.dt + p.r[2]            
+                if (p.static != True):
+                    p.p[0] = p.v[0]*self.dt + p.p[0]
+                    p.p[1] = p.v[1]*self.dt + p.p[1]
+                    p.p[2] = p.v[2]*self.dt + p.p[2]            
+
+            
                 
                 
-            return self.n_body_system
+        return self.n_body_system
 
                 
 ANG = 7.6 # initial angular position of the rocket in radians
@@ -131,15 +135,15 @@ Sun.p = [0, 0, 0] # Position vector
 # Mars
 Mars = Particle()
 Mars.m = 6.4e23 # Mass
-Mars.r = 1.52  # Average distance to the Sun
+Mars.r = 206e10  # Average distance to the Sun (Km)
 Mars.ve = 5030 # Escape velocity
-Mars.p = [1.52, 0, 0] # Position vector
+Mars.p = [206e10, 0, 0] # Position vector
 
 
 #Saturn
 Saturn = Particle()
 Saturn.m = 5.683e26 # Mass 
-Saturn.r = 9.5  # Average distance to the Sun 
+Saturn.r =  1418e10 # Average distance to the Sun (Km)
 Saturn.ve = 35500 # Escape velocity
 Saturn.p = [round(Saturn.r*ca,2), round(Saturn.r*sa, 2),0] # Position vector
 
@@ -147,9 +151,10 @@ Saturn.p = [round(Saturn.r*ca,2), round(Saturn.r*sa, 2),0] # Position vector
 # Rocket
 Rocket = Particle()
 Rocket.m = 1e6 # Mass
-Rocket.r = 1.52 # Average distance to the Sun 
+Rocket.r = 206e10 # Average distance to the Sun 
 Rocket.ve = 28000/3.6 # Velocity that beats Mars escape velocity (clearance site)
 Rocket.p = [round( Mars.p[0] + (ca*0.03),2), round((Mars.p[1] + sa*0.03), 2),0] # Position vector 
+Rocket.v = [5030, 0, 0] # Velocity vector
 #considering radius on a scale of e5 (0.03e5) [km]
 Rocket.static = False # Not static
 Rocket.acce = [16795.60,2241.01,0]
@@ -175,6 +180,8 @@ for j in range(1555200000): # 1555200000 = 6 months on 0.01 secs
     two_body = newton.compute()
     if (skip % 8640000 == 0):
         two_body.Print()
+        skip = 0
+        collect()
     skip=skip+1
 
 
