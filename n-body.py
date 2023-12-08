@@ -153,11 +153,11 @@ Rocket = Particle()
 Rocket.m = 1e6 # Mass
 Rocket.r = 206e10 # Average distance to the Sun 
 Rocket.ve = 28000/3.6 # Velocity that beats Mars escape velocity (clearance site)
-Rocket.p = [round( Mars.p[0] + (ca*0.03),2), round((Mars.p[1] + sa*0.03), 2),0] # Position vector 
+Rocket.p = [round( Mars.p[0] + (ca*0.03),2)+3_389_000, round((Mars.p[1] + sa*0.03), 2),0] # Position vector 
 Rocket.v = [5030, 0, 0] # Velocity vector
 #considering radius on a scale of e5 (0.03e5) [km]
 Rocket.static = False # Not static
-Rocket.acce = [16795.60,2241.01,0]
+Rocket.acce = [0.18,0.04,0]
 
 
 #        General information:
