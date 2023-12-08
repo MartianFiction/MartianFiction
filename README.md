@@ -33,13 +33,21 @@ Isaac Asimov is still considered one of the biggest science fiction writers of a
 - Validation: Run the n-body model giving other physical measures.
 
 ## Usage
-
+- To change the initial conditions modify the n-body.py file.
+- To gather data run the n-body.py file and store it's contents on a file, example command: "python n-body.py > data_1.txt"
+- Be aware the estimated time of script running is about 4 hours.
+- With visualize.py create the images to represent the travel.
 
 ## Results
+- After several tries and hours the results where stored on the "data.txt" file.
+Here the results video:
+https://youtu.be/DclfLVQKfbM
 
 
 ## Conclusions
-
+Our model ended up on the next Conclusions:
+Due to the initial vague indications Asimov left on "The Martian Way" the rocket's movement vector was flawed and could not move directly to Saturn, still, the rocket, did had a really good velocity and acceleration to actually be possible to achieve said journey.
+The 6 month time that Asimov theorized with his calculations was actually too much and, even if the angle would have been correct, the rocket surpassed all Saturn's coordinates on aproximately the 90th day.
 
 ## Reference
 
